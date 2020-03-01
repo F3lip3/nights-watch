@@ -26,5 +26,8 @@ Route.resource('roles', 'RoleController')
   .apiOnly()
   .middleware('auth')
 
-Route.post('users', 'UserController.store')
+Route.post('passwords', 'ForgotPasswordController.store')
+Route.put('passwords', 'ForgotPasswordController.update')
+
 Route.post('sessions', 'SessionController.store')
+Route.post('users', 'UserController.store')
