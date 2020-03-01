@@ -7,7 +7,7 @@ const User = use('App/Models/User')
 const Mail = use('Mail')
 
 class ForgotPasswordController {
-  async store ({ request }) {
+  async store({ request }) {
     const email = request.input('email')
     const user = await User.findByOrFail('email', email)
 
@@ -15,10 +15,7 @@ class ForgotPasswordController {
     user.token_created_at = new Date()
 
     await Mail.send(
-      [
-        'emails.forgot_password',
-        'emails.forgot_password_text'
-      ],
+      ['emails.forgot_password', 'emails.forgot_password_text'],
       {
         email,
         name: user.username,
@@ -28,9 +25,7 @@ class ForgotPasswordController {
       message => {
         message
           .to(user.email)
-          .from(
-            'atendimento@nightswatch.com.br',
-            'Atendimento | Night\'s Watch')
+          .from('atendimento@nightswatch.com.br', "Atendimento | Night's Watch")
           .subject('Recuperação de Senha')
       }
     )
@@ -38,7 +33,7 @@ class ForgotPasswordController {
     await user.save()
   }
 
-  async update ({ request, response }) {
+  async update({ request, response }) {
     try {
       const { token, password } = request.all()
       const user = await User.findByOrFail('token', token)
@@ -47,13 +42,11 @@ class ForgotPasswordController {
         .subtract(2, 'days')
         .isAfter(user.token_created_at)
       if (tokenExpired) {
-        return response
-          .status(401)
-          .send({
-            error: {
-              message: 'Reset password token is expired!'
-            }
-          })
+        return response.status(401).send({
+          error: {
+            message: 'Reset password token is expired!'
+          }
+        })
       }
 
       user.token = null
@@ -62,13 +55,11 @@ class ForgotPasswordController {
 
       await user.save()
     } catch (err) {
-      return response
-        .status(err.status)
-        .send({
-          error: {
-            message: 'An error occurred reseting password!'
-          }
-        })
+      return response.status(err.status).send({
+        error: {
+          message: 'An error occurred reseting password!'
+        }
+      })
     }
   }
 }

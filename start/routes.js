@@ -25,9 +25,14 @@ Route.resource('permissions', 'PermissionController')
 Route.resource('roles', 'RoleController')
   .apiOnly()
   .middleware('auth')
+  .validator(new Map([[['roles.store'], ['RoleStore']]]))
 
-Route.post('passwords', 'ForgotPasswordController.store')
-Route.put('passwords', 'ForgotPasswordController.update')
+Route.post('passwords', 'ForgotPasswordController.store').validator(
+  'ForgotPassword'
+)
+Route.put('passwords', 'ForgotPasswordController.update').validator(
+  'ResetPassword'
+)
 
-Route.post('sessions', 'SessionController.store')
+Route.post('sessions', 'SessionController.store').validator('Session')
 Route.post('users', 'UserController.store').validator('User')

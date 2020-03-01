@@ -1,17 +1,16 @@
 'use strict'
 
-class User {
+class ResetPassword {
   get validateAll() {
     return true
   }
 
   get rules() {
     return {
-      username: 'required|min:6|max:80|unique:users',
-      email: 'required|email|max:254|unique:users',
+      token: 'required',
       password: 'required|min:3|max:60|confirmed'
     }
   }
 }
 
-module.exports = User
+module.exports = ResetPassword

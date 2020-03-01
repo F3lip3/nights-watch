@@ -4,7 +4,7 @@
 const User = use('App/Models/User')
 
 class UserController {
-  async store ({ request }) {
+  async store({ request }) {
     const { permissions, roles, ...data } = request.only([
       'username',
       'email',
@@ -28,7 +28,7 @@ class UserController {
     return user
   }
 
-  async update ({ request, params }) {
+  async update({ request, params }) {
     const { permissions, roles, ...data } = request.only([
       'username',
       'email',
