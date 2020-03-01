@@ -30,4 +30,4 @@ Route.post('passwords', 'ForgotPasswordController.store')
 Route.put('passwords', 'ForgotPasswordController.update')
 
 Route.post('sessions', 'SessionController.store')
-Route.post('users', 'UserController.store')
+Route.post('users', 'UserController.store').validator('User')
