@@ -9,6 +9,11 @@ class PermissionController {
     return permissions
   }
 
+  async show ({ params }) {
+    const permission = await Permission.findOrFail(params.id)
+    return permission
+  }
+
   async store ({ request }) {
     const data = request.only(['name', 'slug', 'description'])
     const permission = await Permission.create(data)

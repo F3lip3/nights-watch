@@ -22,7 +22,7 @@ class RoleController {
   }
 
   async store ({ request }) {
-    const { permissions, data } = request.only([
+    const { permissions, ...data } = request.only([
       'name',
       'slug',
       'description',

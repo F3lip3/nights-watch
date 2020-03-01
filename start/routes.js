@@ -18,10 +18,13 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.resource('/permissions', 'PermissionController')
+Route.resource('permissions', 'PermissionController')
   .apiOnly()
   .middleware('auth')
 
-Route.resource('/roles', 'RoleController')
+Route.resource('roles', 'RoleController')
   .apiOnly()
   .middleware('auth')
+
+Route.post('users', 'UserController.store')
+Route.post('sessions', 'SessionController.store')
