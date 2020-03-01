@@ -7,7 +7,10 @@ class RoleUpdate {
 
   get rules() {
     return {
-      // validation rules
+      name: 'required|min:5|max:255|unique:roles',
+      slug: 'required|min:3|max:255|unique:roles',
+      permissions: 'array',
+      'permissions.*': 'integer|above:0'
     }
   }
 }
