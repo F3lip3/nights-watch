@@ -6,9 +6,11 @@ class RoleUpdate {
   }
 
   get rules() {
+    const roleId = this.ctx.params.id
+
     return {
-      name: 'required|min:5|max:255|unique:roles',
-      slug: 'required|min:3|max:255|unique:roles',
+      name: `min:5|max:255|unique:roles,name,id,${roleId}`,
+      slug: `min:3|max:255|unique:roles,slug,id,${roleId}`,
       permissions: 'array',
       'permissions.*': 'integer|above:0'
     }

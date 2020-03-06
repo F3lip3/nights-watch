@@ -21,11 +21,22 @@ Route.get('/', () => {
 Route.resource('permissions', 'PermissionController')
   .apiOnly()
   .middleware('auth')
+  .validator(
+    new Map([
+      [['permissions.store'], ['PermissionStore']],
+      [['permissions.update'], ['PermissionUpdate']]
+    ])
+  )
 
 Route.resource('roles', 'RoleController')
   .apiOnly()
   .middleware('auth')
-  .validator(new Map([[['roles.store'], ['RoleStore']]]))
+  .validator(
+    new Map([
+      [['roles.store'], ['RoleStore']],
+      [['roles.update'], ['RoleUpdate']]
+    ])
+  )
 
 Route.post('passwords', 'ForgotPasswordController.store').validator(
   'ForgotPassword'
